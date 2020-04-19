@@ -1,0 +1,197 @@
+
+
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="style1.css">
+
+	<title>Home</title>
+
+</head>
+<body>
+
+	<nav class="navbar navbar-expand-md navbar-light">
+	  <a class="navbar-brand" href="home.html">Music Match</a>
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	    <span class="navbar-toggler-icon"></span>
+	  </button>
+
+	   <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul id = "nav" class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" onclick="link('home.html')">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a id = "con" class="nav-link"  onclick="link('contact.html')">Contact</a>
+          </li>
+        <li class="nav-item active">
+        <a class="nav-link" onclick="link('t.html')">Your Stats</a>
+        </li>
+        </ul>
+      </div>
+	</nav>
+
+    <h4 class = "m-4"> Your top artists</h4>
+
+    <div class = "container">
+        <div class = "row">
+            <div id = "top" class = "col-6 col-md-4 ">
+                <h5 class = "m-4"> Over the last 4 weeks </h5>
+            </div>
+            <div id = "top2" class = "col-6 col-md-4 ">
+                <h5 class = "m-4"> Over the last 6 months </h5>
+            
+            </div>
+            <div id = "top3" class = "col-6 col-md-4 " >
+                <h5 class = "m-4"> Over the last several years </h5>
+            
+            </div>
+        </div>
+    </div>
+
+
+    <h4 class = "m-4"> Your top tracks</h4>
+
+    <div class = "container">
+        <div class = "row">
+            <div id = "topT" class = "col-6  col-md-4">
+                <h5 class = "m-4"> Over the last 4 weeks </h5>
+            </div>
+            <div id = "topT2" class = "col-6  col-md-4">
+                <h5 class = "m-4"> Over the last 6 months </h5>
+            
+            </div>
+            <div id = "topT3" class = "col-6  col-md-4">
+                <h5 class = "m-4"> Over the last several years </h5>
+            
+            </div>
+        </div>
+    </div>
+
+
+
+	<footer class="page-footer font-small">
+	  <div class="footer-copyright text-center py-3">© 2020 Music Match</div>
+	</footer>
+	
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+<script>
+
+	const API_ENDPOINT = 'https://api.spotify.com/v1';
+    let ACCESS_TOKEN;
+
+    function getCurrentQueryParameters(delimiter = '#') {
+        const currentLocation = String(window.location).split(delimiter)[1];
+        const params = new URLSearchParams(currentLocation);
+        return params;
+    }
+
+    function updateTopInformationT(json, x) {
+        var ol = document.createElement("ol");
+        for (var i = 0; i < 10; i++){
+            var li = document.createElement("li");
+            li.innerHTML = json.items[i].name;
+            ol.appendChild(li);
+        }
+
+        document.querySelector(x).appendChild(ol);
+    }
+
+    function link(x) {
+            const currentQueryParameters = getCurrentQueryParameters('#');
+            ACCESS_TOKEN = currentQueryParameters.get('access_token');
+            if (ACCESS_TOKEN != null){
+                window.location = x +'#access_token=' + ACCESS_TOKEN;
+            }
+            else {
+                window.location = x;
+            }
+            
+        }
+
+     fetchTopInformationT("short_term", "#topT");
+     fetchTopInformationT("medium_term", "#topT2");
+     fetchTopInformationT("long_term", "#topT3");
+
+     fetchTopInformation("short_term", "#top");
+     fetchTopInformation("medium_term", "#top2");
+     fetchTopInformation("long_term", "#top3");
+
+    function fetchTopInformationT(z, y) {
+        const currentQueryParameters = getCurrentQueryParameters('#');
+        ACCESS_TOKEN = currentQueryParameters.get('access_token');
+
+        $.ajax({
+            url: 'https://api.spotify.com/v1/me/top/tracks',
+            dataType: 'json',
+            headers: {
+               'Authorization': 'Bearer ' + ACCESS_TOKEN
+            },
+            data: {
+                time_range: z,
+                limit: 15
+            },
+            success: function (response) {
+                response = JSON.parse(JSON.stringify(response));
+                updateTopInformationT(response, y);
+
+            },
+            error: function(e) {
+                console.log(e);
+             }
+        });
+    }
+
+    function updateTopInformation(json, x) {
+        var ol = document.createElement("ol");
+        for (var i = 0; i < 10; i++){
+            var li = document.createElement("li");
+            li.innerHTML = json.items[i].name;
+            ol.appendChild(li);
+        }
+
+        document.querySelector(x).appendChild(ol);
+    }
+
+    function fetchTopInformation(z, y) {
+        const currentQueryParameters = getCurrentQueryParameters('#');
+        ACCESS_TOKEN = currentQueryParameters.get('access_token');
+
+        $.ajax({
+            url: 'https://api.spotify.com/v1/me/top/artists',
+            dataType: 'json',
+            headers: {
+               'Authorization': 'Bearer ' + ACCESS_TOKEN
+            },
+            data: {
+                time_range: z,
+                limit: 15
+            },
+            success: function (response) {
+                response = JSON.parse(JSON.stringify(response));
+                updateTopInformation(response, y);
+
+            },
+            error: function(e) {
+                console.log(e);
+             }
+        });
+    }
+
+
+</script>
+
+
+
+</body>
+</html>

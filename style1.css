@@ -1,0 +1,181 @@
+
+@font-face {
+  font-family: "g";
+  src: url("h.ttf");
+}
+
+
+.delete{
+  background-color: white;
+  border-radius: 6px;
+  width: 90%;
+  text-align: center;
+  margin: 1%;
+  visibility: hidden;
+}
+
+.like{
+  background-color: pink;
+  border-radius: 6px;
+  width: 90%;
+  text-align: center;
+  margin: 1%;
+}
+
+body{
+  font-family: g;
+  margin: 0;
+  width: 100%;
+  background: linear-gradient(-45deg, #c4dbff, #d9adff, #96bdff, #ffd1a8);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+
+}
+
+.res{
+  text-align: center;
+  padding:10%;
+}
+
+#rank{
+  width: 50%;
+  padding: 2%;
+  margin-right: auto;
+  margin-left: auto;
+  display: block;
+}
+
+
+.palette-color{
+  padding: 1%;
+  width: 90%;
+  margin-right: auto;
+  margin-left: auto;
+  display: block;
+}
+
+#p{
+  width: 90%; margin-left: auto; margin-right: auto; display: block;
+}
+
+.i{
+  display: block; margin-left: auto; margin-right: auto; width: 90%;
+}
+
+
+#header {
+  padding: 15%;
+  text-align: center;
+  background-image: url("ear.jpg");
+  background-size: cover;
+  background-position: center;
+  font-size: 35px;
+  color: black;
+  text-shadow: 2px 2px 5px white;
+}
+
+.is-invalid {
+  color: red;
+}
+
+small{
+  margin-bottom: 3%;
+}
+
+h2{
+  text-align: center;
+}
+
+h4{
+  text-align: center;
+}
+
+h3{
+   animation: move 10s ease infinite;
+}
+
+@keyframes move {
+  0% {
+    color: darkBlue;
+    text-shadow: 2px 2px 5px pink;
+  }
+  50% {
+    color: darkPurple;
+    text-shadow: 5px 5px 10px skyBlue;
+  }
+  100% {
+    color: darkBlue;
+    text-shadow: 2px 2px 5px white;
+  }
+
+}
+
+#contact, #search{
+  margin: 5%;
+}
+
+p{
+  text-align: left;
+}
+
+ul{
+  text-align: left;
+}
+
+img{
+  padding: 1%;
+}
+
+.col-md{
+  padding: 2%;
+  text-align: center;
+}
+
+.col-md-8{
+  padding: 2%;
+  text-align: center;
+}
+
+.page-footer{
+  background-color: #cc81db;
+}
+
+.navbar{
+  background-color: #a56bff;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: white;
+}
+
+.navbar-light .navbar-nav .nav-link:hover {
+  color: #003300;
+}
+
+#header p{
+  font-size: 20px;
+  text-shadow: 1px 1px black;
+}
+
+
+@media (min-width: 768px){
+   img{
+    padding: 3%;
+   }
+
+   .row2{
+    flex-direction: row-reverse;
+   }
+}

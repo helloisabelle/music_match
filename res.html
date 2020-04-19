@@ -1,0 +1,300 @@
+
+
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="style1.css">
+
+	<title>Home</title>
+
+</head>
+<body>
+
+	<nav class="navbar navbar-expand-md navbar-light">
+	  <a class="navbar-brand" href="javascript:history.back()">Music Match</a>
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	    <span class="navbar-toggler-icon"></span>
+	  </button>
+
+	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul id = "nav" class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" onclick="link('home.html')">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a id = "con" class="nav-link"  onclick="link('contact.html')">Contact</a>
+          </li>
+        <li class="nav-item">
+        <a class="nav-link" onclick="link('t.html')">Your Stats</a>
+        </li>
+        </ul>
+      </div>
+	</nav>
+
+	<div id = "header">
+		<h2>Music Match</h2>
+		<h3>Find music that is matches you!</h3>
+	</div>
+
+
+    <div id="top">
+    </div>
+
+    <br/>
+    <br/>
+    <br/>
+
+    <h4>Given the following parameters: </h4>
+    <div class = "text-center" id="g"></div>
+    <div class = "text-center" id="t"></div>
+    <div class = "text-center" id="a"></div>
+
+
+	<div id="error" class = "text-center text-danger"></div>
+
+    <br/>
+    <br/>
+    <h4 class = "text-center">Here is your personalized playlist!</h4>
+	<div id="rec"></div>
+
+<div class="row justify-content-center m-5">
+    <button id ="add" class="btn btn-primary" style = "padding-top: 10px;" onclick = "addP()"><span>Add playlist to Spotify</span></button>
+  </div>
+
+	<hr>
+
+
+
+
+
+	<footer class="page-footer font-small">
+	  <div class="footer-copyright text-center py-3">© 2020 Music Match</div>
+	</footer>
+	
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+<script>
+
+	const API_ENDPOINT = 'https://api.spotify.com/v1';
+    let ACCESS_TOKEN;
+
+    function getCurrentQueryParameters(delimiter = '#') {
+        const currentLocation = String(window.location).split(delimiter)[1];
+        const params = new URLSearchParams(currentLocation);
+
+        return params;
+    }
+
+    function link(x) {
+            const currentQueryParameters = getCurrentQueryParameters('#');
+            ACCESS_TOKEN = currentQueryParameters.get('access_token');
+            if (ACCESS_TOKEN != null){
+                window.location = x +'#access_token=' + ACCESS_TOKEN;
+            }
+            else {
+                window.location = x;
+            }
+            
+        }
+
+
+	var x = 0;
+
+	var g = "";
+	var t = "";
+	var a = "";
+
+	var tId = "";
+	var aId = "";
+
+     if (localStorage.getItem("genres").length == 0 || localStorage.getItem("genres") == "null"){
+     	x++;
+     } 
+     else {
+        var g = localStorage.getItem("genres");
+        $("#g").text("Genres: " + g);
+     }
+    
+    if (localStorage.getItem("tracks").length == 0 || localStorage.getItem("tracks") == "null"){
+    	x++;
+     } 
+     else {
+        var t = localStorage.getItem("tracks");
+        var tId = localStorage.getItem("tracksId");
+        $("#t").html("Tracks: " + t);
+     }
+
+    if (localStorage.getItem("artists").length == 0 || localStorage.getItem("artists") == "null"){
+    	x++;
+     } 
+     else {
+        var a = localStorage.getItem("artists");
+        var aId = localStorage.getItem("artistsId");
+        $("#a").html("Artists: " + a);
+     }
+
+     if (x == 3){
+     	$("#g").html("Error getting parameters.");
+     }
+
+     var arr = [];
+
+         function updateRecInformation(json) {
+
+            if (json.tracks.length == 0){
+                $('#error').text("Sorry, no tracks were found that matched your paramters :(");
+            }
+            else{
+
+          	var ol = document.createElement("ol");
+          	for (var i = 0; i < json.tracks.length; i++){
+          		var li = document.createElement("li");
+          		li.innerHTML = json.tracks[i].name + " by " + json.tracks[i].artists[0].name;
+              arr.push("spotify:track:" + json.tracks[i].id);
+          		ol.appendChild(li);
+          	}
+        }
+
+    	document.querySelector('#rec').appendChild(ol);
+    }
+
+    fetchRecInformation();
+
+    function fetchRecInformation() {
+        const currentQueryParameters = getCurrentQueryParameters('#');
+        ACCESS_TOKEN = currentQueryParameters.get('access_token');
+
+    	$.ajax({
+            url: 'https://api.spotify.com/v1/recommendations',
+            dataType: 'json',
+            headers: {
+               'Authorization': 'Bearer ' + ACCESS_TOKEN
+            },
+            data: {
+	            limit: 15,
+	            seed_genres: g,
+	            seed_artists: aId,
+	            seed_tracks: tId
+        	},
+        	success: function (response) {
+	            response = JSON.parse(JSON.stringify(response));
+            	updateRecInformation(response);
+
+	        },
+	        error: function(e) {
+			    console.log(e);
+			  }
+        });
+    }
+
+    var uid ="";
+
+    function u(json) {
+        uid = json.id;
+    }
+
+    userId();
+
+
+    function addP(){
+      if (uid.length >5){ makeP(arr);}
+      
+    }
+
+
+    function userId() {
+        const currentQueryParameters = getCurrentQueryParameters('#');
+        ACCESS_TOKEN = currentQueryParameters.get('access_token');
+
+      $.ajax({
+            url: 'https://api.spotify.com/v1/me',
+            dataType: 'json',
+            headers: {
+               'Authorization': 'Bearer ' + ACCESS_TOKEN
+            },
+
+          success: function (response) {
+              response = JSON.parse(JSON.stringify(response));
+              u(response);
+          },
+          error: function(e) {
+          console.log(e);
+        }
+        });
+    }
+
+    function makeP(arr) {
+        const currentQueryParameters = getCurrentQueryParameters('#');
+        ACCESS_TOKEN = currentQueryParameters.get('access_token');
+
+        const fetchTopOptions = {
+            method: 'POST',
+            headers: new Headers({
+                'Authorization': `Bearer ${ACCESS_TOKEN}`,
+                'Content-Type': 'application/json'
+            }),
+            body: JSON.stringify( {
+              name: "Music Match Playlist",
+              description: "Your customized Music Match playlist :)",
+              public: true
+            })
+        };
+
+        let x = 'https://api.spotify.com/v1/users/'+uid+'/playlists';
+
+        fetch(x, fetchTopOptions).then(function (response) {
+            return response.json();
+        }).then(function (json) {
+            play(json, arr);
+        }).catch(function (error) {
+            console.log(error);
+        });
+    }
+
+    function play(json, arr){
+      var i = json.id;
+      const currentQueryParameters = getCurrentQueryParameters('#');
+        ACCESS_TOKEN = currentQueryParameters.get('access_token');
+
+        const fetchTopOptions = {
+            method: 'POST',
+            headers: new Headers({
+                'Authorization': `Bearer ${ACCESS_TOKEN}`,
+                'Content-Type': 'application/json'
+            }),
+            body: JSON.stringify( {
+              uris: arr
+            })
+        };
+
+        let x = 'https://api.spotify.com/v1/playlists/' + i + '/tracks';
+
+        fetch(x, fetchTopOptions).then(function (response) {
+          if (response.status == 201){
+            $('#add').text("Added!");
+          }
+          else{
+            $('#add').text("Failed to add.");
+          }
+        }).catch(function (error) {
+            console.log(error);
+        });
+    }
+    
+
+
+</script>
+
+
+
+</body>
+</html>
