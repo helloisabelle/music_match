@@ -5,7 +5,7 @@
 	<title>Confirmation</title>
 
 	<?php
-	 $email_to = "isabelln@usc.edu";
+	 $email_to = "isabelle.linh.nguyen@gmail.com";
     $email_subject = $_POST["subject"];
 
     if (!isset($_POST["subject"]) || empty($_POST["subject"]) || !isset($_POST['name']) ||
@@ -61,7 +61,7 @@
  <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul id = "nav" class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link" onclick="link('home.html')">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" onclick="link('index.html')">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item active">
             <a id = "con" class="nav-link"  onclick="link('contact.html')">Contact</a>
