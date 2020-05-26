@@ -1,9 +1,15 @@
 
 @font-face {
   font-family: "g";
-  src: url("h.ttf");
+  src: url("book.ttf");
 }
 
+body{
+  font-family: g;
+  margin: 0;
+  width: 100%;
+  background: linear-gradient(-90deg, #d9adff, #96bdff);
+}
 
 .delete{
   background-color: white;
@@ -20,28 +26,6 @@
   width: 90%;
   text-align: center;
   margin: 1%;
-}
-
-body{
-  font-family: g;
-  margin: 0;
-  width: 100%;
-  background: linear-gradient(-45deg, #c4dbff, #d9adff, #96bdff, #ffd1a8);
-  background-size: 400% 400%;
-  animation: gradient 15s ease infinite;
-}
-
-@keyframes gradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-
 }
 
 .res{
@@ -78,7 +62,7 @@ body{
 #header {
   padding: 15%;
   text-align: center;
-  background-image: url("ear.jpg");
+  background-image: url("music.jpg");
   background-size: cover;
   background-position: center;
   font-size: 35px;
@@ -102,25 +86,6 @@ h4{
   text-align: center;
 }
 
-h3{
-   animation: move 10s ease infinite;
-}
-
-@keyframes move {
-  0% {
-    color: darkBlue;
-    text-shadow: 2px 2px 5px pink;
-  }
-  50% {
-    color: darkPurple;
-    text-shadow: 5px 5px 10px skyBlue;
-  }
-  100% {
-    color: darkBlue;
-    text-shadow: 2px 2px 5px white;
-  }
-
-}
 
 #contact, #search{
   margin: 5%;
