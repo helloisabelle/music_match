@@ -43,10 +43,10 @@
 	</div>
 
      <div class="row justify-content-center m-5">
-	<button class="btn btn-primary" style = "padding-top: 10px;" id="log" onclick = 'buildAuthLink()'>Login to Spotify</button>
+		<button class="btn btn-primary" style = "padding-top: 10px;" id="log" onclick = 'buildAuthLink()'>Login to Spotify</button>
     </div>
 
-	<div id = "z">
+	<div id = "z" style = "display:none">
 		<div id="artist-id" style = "display:none"></div>
 		<div id="#track-id" style = "display:none"></div>
 		<div id="#artist" style = "display:none"></div>
@@ -74,26 +74,26 @@
 					<button class="btn btn-primary" style = "padding-top: 10px;" onclick = "searchArtist()"><span>Add artist</span></button>
 				</div>
 			</div>
-	</div>
+		</div>
 
-	<div id="empty" class = "text-center text-danger"></div>
-	<div id="too-much" class = "text-center text-danger"></div>
+		<div id="empty" class = "text-center text-danger"></div>
+		<div id="too-much" class = "text-center text-danger"></div>
 
-		<div id="not-found"></div>
-		<div id="not-found2"></div>
+			<div id="not-found"></div>
+			<div id="not-found2"></div>
 
-	<br/>
-	<hr/>
-	<div class = "container">
-		<div class = "row">
-			<div class = "col col-6 ">
-				<h5 class = "text-center" style = "text-decoration: underline;">Track List</h5>
-				<ul id = "song-list"></ul>
-			</div>
-			<div class = "col col-6 ">
-				<h5 class = "text-center" style = "text-decoration: underline;">Artist List</h5>
-				<ul id = "artist-list"></ul>
-			</div>
+		<br/>
+		<hr/>
+		<div class = "container">
+			<div class = "row">
+				<div class = "col col-6 ">
+					<h5 class = "text-center" style = "text-decoration: underline;">Track List</h5>
+					<ul id = "song-list"></ul>
+				</div>
+				<div class = "col col-6 ">
+					<h5 class = "text-center" style = "text-decoration: underline;">Artist List</h5>
+					<ul id = "artist-list"></ul>
+				</div>
 			</div>
 		</div>
 
@@ -123,14 +123,11 @@
 	  <div class="footer-copyright text-center py-3">© 2020 Music Match</div>
 	</footer>
 	
-
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-<script src = "funcs.js"></script>
-<script>
-    
-</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src = "funcs.js"></script>
+
 </body>
 </html>

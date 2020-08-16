@@ -9,6 +9,7 @@ $(document).ready(function() {
         $("#hid").css("visibility", "visible");
     }
     else{
+        alert('jelloo');
         $('#z').hide();
         $('#log').show();
         $("#hid").css("visibility", "hidden");
