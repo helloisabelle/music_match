@@ -46,7 +46,7 @@
 		<button class="btn btn-primary" style = "padding-top: 10px;" id="log" onclick = 'buildAuthLink()'>Login to Spotify</button>
     </div>
 
-	<div id = "z" style = "display:none">
+	<div id = "z">
 		<div id="artist-id" style = "display:none"></div>
 		<div id="#track-id" style = "display:none"></div>
 		<div id="#artist" style = "display:none"></div>
@@ -128,6 +128,32 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src = "funcs.js"></script>
+	<script>
+		$(document).ready(function() {
+			if (String(window.location).length > 80){
+				fetchGenres();
+				$('#log').hide();
+				$('#z').show();
+			}
+			else{
+				alert('jelloo');
+				$('#z').hide();
+				$('#log').show();
+			}
+		});
+
+		$("#artist").on( "keypress", function(event) {
+			if (event.which == 13 && !event.shiftKey) {
+				searchArtist();
+			}
+		});
+
+		$("#name").on( "keypress", function(event) {
+			if (event.which == 13 && !event.shiftKey) {
+				searchSong();
+			}
+		});
+	</script>
 
 </body>
 </html>

@@ -3,29 +3,9 @@ let ACCESS_TOKEN;
 
 $(document).ready(function() {
     if (String(window.location).length > 80){
-        fetchGenres();
-        $('#log').hide();
-        $('#z').show();
         $("#hid").css("visibility", "visible");
     }
-    else{
-        alert('jelloo');
-        $('#z').hide();
-        $('#log').show();
-        $("#hid").css("visibility", "hidden");
-    }
-});
-
-$("#artist").on( "keypress", function(event) {
-    if (event.which == 13 && !event.shiftKey) {
-        searchArtist();
-    }
-});
-
-$("#name").on( "keypress", function(event) {
-    if (event.which == 13 && !event.shiftKey) {
-        searchSong();
-    }
+    else $("#hid").css("visibility", "hidden");
 });
 
 function getPlaylist(){
