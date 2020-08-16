@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang = "en">
 <head>
@@ -50,7 +48,6 @@
 
     <div id = "z">
 
-
 	<div id="searchA" style = "display:none"></div>
     <div id="search" style = "display:none"></div>
     <div id="searchA2" style = "display:none"></div>
@@ -87,27 +84,24 @@
    <div id="empty" class = "text-center text-danger"></div>
    <div id="too-much" class = "text-center text-danger"></div>
 
-   <div id="not-found"></div>
-    <div id="not-found2"></div>
+	<div id="not-found"></div>
+	<div id="not-found2"></div>
 
    <br/>
    <hr/>
    <div class = "container">
-   	<div class = "row">
-   		<div class = "col col-6 ">
-   			<h5 class = "text-center" style = "text-decoration: underline;">Track List</h5>
-   			<ul id = "song-list"></ul>
+	<div class = "row">
+		<div class = "col col-6 ">
+			<h5 class = "text-center" style = "text-decoration: underline;">Track List</h5>
+			<ul id = "song-list"></ul>
+		</div>
+		<div class = "col col-6 ">
+			<h5 class = "text-center" style = "text-decoration: underline;">Artist List</h5>
+			<ul id = "artist-list"></ul>
+		</div>
+		</div>
+	</div>
 
-   		</div>
-   		<div class = "col col-6 ">
-   			<h5 class = "text-center" style = "text-decoration: underline;">Artist List</h5>
-   			<ul id = "artist-list"></ul>
-   		</div>
-   	</div>
-   </div>
-
-	
-	
 	<hr>
 
     <h5 class = "text-center" style = "text-decoration: underline;">Genres</h5>
@@ -119,8 +113,6 @@
 	   	</div>
 	   	</div>
 	</form>
-
-	
 
     <div class="row justify-content-center m-5">
 		<button class="btn btn-primary" style = "padding-top: 10px;" onclick = "f()"><span>Get your playlist!</span></button>
@@ -237,86 +229,6 @@
         }
 
 	}
-
-
-    function updateTopInformation(json) {
-    	var ol = document.createElement("ol");
-    	for (var i = 0; i < 10; i++){
-    		var li = document.createElement("li");
-    		li.innerHTML = json.items[i].name;
-    		ol.appendChild(li);
-    	}
-
-    	document.querySelector('#top').appendChild(ol);
-    }
-
-    function updateRecInformation(json) {
-    	var ol = document.createElement("ol");
-    	for (var i = 0; i < json.tracks.length; i++){
-    		var li = document.createElement("li");
-    		li.innerHTML = json.tracks[i].name;
-    		ol.appendChild(li);
-    	}
-
-    	document.querySelector('#rec').appendChild(ol);
-    }
-
-    function fetchRecInformation() {
-        const currentQueryParameters = getCurrentQueryParameters('#');
-        ACCESS_TOKEN = currentQueryParameters.get('access_token');
-
-    	$.ajax({
-            url: 'https://api.spotify.com/v1/recommendations',
-            dataType: 'json',
-            headers: {
-               'Authorization': 'Bearer ' + ACCESS_TOKEN
-            },
-            data: {
-	            limit: 10,
-	            seed_genres: g
-        	},
-        	success: function (response) {
-	            response = JSON.parse(JSON.stringify(response));
-            	updateRecInformation(response);
-
-	        },
-	        error: function(e) {
-			    console.log(e);
-			  }
-        });
-    }
-
-    
-    function fetchTopInformation() {
-        const currentQueryParameters = getCurrentQueryParameters('#');
-        ACCESS_TOKEN = currentQueryParameters.get('access_token');
-
-        const fetchTopOptions = {
-            method: 'GET',
-            headers: new Headers({
-                'Authorization': `Bearer ${ACCESS_TOKEN}`,
-                'Content-Type': 'application/json',
-                
-                
-                'Accept': 'application/json'
-            })
-            ,
-            data: {
-            	time_range: 'medium_term',
-            	limit: 10
-            }
-        };
-
-        let x = API_ENDPOINT + "/me/top/artists";
-
-        fetch(x, fetchTopOptions).then(function (response) {
-            return response.json();
-        }).then(function (json) {
-            updateTopInformation(json);
-        }).catch(function (error) {
-            console.log(error);
-        });
-    }
 
     function searchResultsA(json){ 
     	if ($("#artist-list li").length + $("#song-list li").length + $("#genres input:checkbox:checked").length >= 5){
@@ -511,10 +423,8 @@
         }).catch(function (error) {
             console.log(error);
         });
-    }
-
-
-
+	}
+	
 </script>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 

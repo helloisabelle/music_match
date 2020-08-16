@@ -6,35 +6,23 @@
 <body>
 
 <?php
+    $host = "isabellelinhnguyen.com";
+    $user = "u680557347_isabelle";
+    $password = "Abc12345";
+    $db = "u680557347_music_db";
 
-	// TODO: Establish DB connection, submit SQL query here. Remember to check for any MySQLi errors.
-$host = "303.itpwebdev.com";
-$user = "isabelln_db_user";
-$password = "uscItp2020";
-$db = "isabelln_music_db";
+    $mysqli = new mysqli($host, $user, $password, $db);
 
-$mysqli = new mysqli($host, $user, $password, $db);
-
-if ($mysqli->connect_errno){
-	echo $mysqli->connect_error;
-	exit();
-}
+    if ($mysqli->connect_errno){
+        echo $mysqli->connect_error;
+        exit();
+    }
     if (!isset($_POST["name"]) || empty($_POST["name"])){
         echo "error";
         exit();
     }
     
     if (!isset($_POST["artist"]) || empty($_POST["artist"])){
-        echo "error";
-        exit();
-    }
-    
-    if (!isset($_POST["type_id"]) || empty($_POST["type_id"])){
-        echo "error";
-        exit();
-    }
-    
-    if (!isset($_POST["lang_id"]) || empty($_POST["lang_id"])){
         echo "error";
         exit();
     }
@@ -53,7 +41,7 @@ if ($mysqli->connect_errno){
     
 
     
-    $sql = "INSERT INTO albums (album_id, album_name, artist, type_id, language_id, likes) VALUES (" . $id . " ,'" . $_POST["name"] ."' ,'" . $_POST["artist"] ."' , " . $_POST["type_id"] . ", " . $_POST["lang_id"] .", 1);";
+    $sql = "INSERT INTO albums (album_id, album_name, artist, likes) VALUES (" . $id . " ,'" . $_POST["name"] ."' ,'" . $_POST["artist"] .", 1);";
     if ($mysqli->query($sql) === TRUE) {
         header("Location: a.php");
         exit;

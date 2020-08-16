@@ -7,10 +7,10 @@ header("Pragma: no-cache"); // HTTP 1.0.
 header("Expires: 0");
 
 
-$host = "303.itpwebdev.com";
-$user = "isabelln_db_user";
-$password = "uscItp2020";
-$db = "isabelln_music_db";
+$host = "isabellelinhnguyen.com";
+$user = "u680557347_isabelle";
+$password = "Abc12345";
+$db = "u680557347_music_db";
 
 $mysqli = new mysqli($host, $user, $password, $db);
 
@@ -119,51 +119,6 @@ if ($mysqli->connect_errno){
                         <label for="name" class="">Artist</label>
 
                         </div>
-
-	                    <div class="row">
-	                            <select name="type_id" id="type" class="form-control">
-								<?php
-									$sql = "SELECT * FROM type;";
-
-									$results = $mysqli->query($sql);
-
-									if (!$results){
-										echo $mysqli->error;
-										exit();
-									}
-
-									while ($row = $results->fetch_assoc()){
-										echo "<option value = ". $row["type_id"] . ">". $row["name"]. "</option>";
-									}
-
-								?>
-
-							</select>
-							<label for="type" class="">Album Type</label>
-	                    </div>
-
-	                    <div class="row">
-	                            <select name="lang_id" id="type2" class="form-control">
-								<?php
-									$sql = "SELECT * FROM language;";
-
-									$results = $mysqli->query($sql);
-
-									if (!$results){
-										echo $mysqli->error;
-										exit();
-									}
-
-									while ($row = $results->fetch_assoc()){
-										echo "<option value = ". $row["language_id"] . ">". $row["name"]. "</option>";
-									}
-
-								?>
-
-							</select>
-							<label for="type2" class="">Language</label>
-	                    </div>
-
 	                    <div class="row">
 	                <input type="submit" id="subject"  name="subject" class="form-control">
 	            </div>
@@ -180,7 +135,7 @@ if ($mysqli->connect_errno){
 	</footer>
 	
 
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
