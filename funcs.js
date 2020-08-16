@@ -1,15 +1,23 @@
 const API_ENDPOINT = 'https://api.spotify.com/v1';
 let ACCESS_TOKEN;
 
-document.querySelector('#message').addEventListener('input', validate); 
-    
 $(document).ready(function() {
-    if (String(window.location).length > 80){
-        $("#hid").css("visibility", "visible");
-    }
-    else{
-        $("#hid").css("visibility", "hidden");
-    }
+    $( document ).ready(function() {
+        if (String(window.location).length > 80){
+            fetchGenres();
+            $('#log').hide();
+            $('#z').show();
+            $("#hid").css("visibility", "visible");
+        }
+        else{
+            $('#z').hide();
+            $('#log').show();
+
+            $("#hid").css("visibility", "hidden");
+
+            
+        }
+    });
 })
 
 $("#artist").on( "keypress", function(event) {
