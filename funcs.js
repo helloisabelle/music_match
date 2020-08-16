@@ -273,5 +273,4 @@ const validate = function(e) {
         e.target.classList.remove("is-invalid");
         document.querySelector('#message-help').style.color = "black";
     }
-
 }
