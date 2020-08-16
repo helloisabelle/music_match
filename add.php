@@ -40,13 +40,13 @@
     $id = $row["album_id"] + 1;
     
     $sql = "INSERT INTO albums (album_id, album_name, artist, likes) VALUES (" . $id . " ,'" . $_POST["name"] ."' ,'" . $_POST["artist"] ."', 1);";
-    if ($mysqli->query($sql) === TRUE) {
-        header("Location: albums.php");
-        exit;
-    } else {
-        echo "<div class=\"text-danger\"> Failed ". $mysqli->error. "</div>";
-
-    }
+    echo $sql;
+    // if ($mysqli->query($sql) === TRUE) {
+    //     header("Location: albums.php");
+    //     exit;
+    // } else {
+    //     echo "<div class=\"text-danger\"> Failed ". $mysqli->error. "</div>";
+    // }
 
 ?>
 

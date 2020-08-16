@@ -2,23 +2,18 @@ const API_ENDPOINT = 'https://api.spotify.com/v1';
 let ACCESS_TOKEN;
 
 $(document).ready(function() {
-    $( document ).ready(function() {
-        if (String(window.location).length > 80){
-            fetchGenres();
-            $('#log').hide();
-            $('#z').show();
-            $("#hid").css("visibility", "visible");
-        }
-        else{
-            $('#z').hide();
-            $('#log').show();
-
-            $("#hid").css("visibility", "hidden");
-
-            
-        }
-    });
-})
+    if (String(window.location).length > 80){
+        fetchGenres();
+        $('#log').hide();
+        $('#z').show();
+        $("#hid").css("visibility", "visible");
+    }
+    else{
+        $('#z').hide();
+        $('#log').show();
+        $("#hid").css("visibility", "hidden");
+    }
+});
 
 $("#artist").on( "keypress", function(event) {
     if (event.which == 13 && !event.shiftKey) {
@@ -267,12 +262,12 @@ function getCurrentQueryParameters(delimiter = '#') {
 }
 
 function l(x) {
-	window.location= 'https://isabellelinhnguyen.com/~isabelln/music-match/like.php?id=' + x;
+	window.location= 'https://isabellelinhnguyen.com/music-match/like.php?id=' + x;
 	return false;
 }
 
 function d(x) {
-	 window.location= 'https://isabellelinhnguyen.com/~isabelln/music-match/delete.php?id=' + x;
+	 window.location= 'https://isabellelinhnguyen.com/music-match/delete.php?id=' + x;
 	return false;
 }
 
