@@ -284,7 +284,6 @@ function link(x) {
     }   
 }
 
-document.querySelector('#message').addEventListener('input', validate); 
 const validate = function(e) {
     if (e.target.value.length > 100 || e.target.value.length == 0){
         e.target.className += " is-invalid";
