@@ -12,7 +12,7 @@ body{
 }
 
 .delete{
-  background-color: white;
+  background-color: #fffbfbeb;
   border-radius: 6px;
   width: 90%;
   text-align: center;
@@ -21,7 +21,7 @@ body{
 }
 
 .like{
-  background-color: pink;
+  background-color: #dca9b2a1;
   border-radius: 6px;
   width: 90%;
   text-align: center;
