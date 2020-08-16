@@ -6,7 +6,7 @@
 <body>
 
 <?php
-    $host = "isabellelinhnguyen.com";
+    $host = "localhost";
     $user = "u680557347_isabelle";
     $password = "Abc12345";
     $db = "u680557347_music_db";
@@ -38,8 +38,6 @@
     
     $row = $results->fetch_assoc();
     $id = $row["album_id"] + 1;
-    
-
     
     $sql = "INSERT INTO albums (album_id, album_name, artist, likes) VALUES (" . $id . " ,'" . $_POST["name"] ."' ,'" . $_POST["artist"] .", 1);";
     if ($mysqli->query($sql) === TRUE) {

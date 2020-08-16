@@ -6,10 +6,10 @@
 <body>
 
 <?php
-    $host = "isabellelinhnguyen.com";
-    $user = "u680557347_isabelle";
-    $password = "Abc12345";
-    $db = "u680557347_music_db";
+    $host = "localhost";
+	$user = "u680557347_isabelle";
+	$password = "Abc12345";
+	$db = "u680557347_music_db";
 
     $mysqli = new mysqli($host, $user, $password, $db);
 
@@ -31,7 +31,6 @@
         echo "<div class=\"text-danger\"> Failed ". $mysqli->error. "</div>";
 
     }
-
 ?>
 </body>
 </html>

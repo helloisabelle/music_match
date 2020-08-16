@@ -46,13 +46,10 @@
 	<button class="btn btn-primary" style = "padding-top: 10px;" id="log" onclick = 'buildAuthLink()'>Login to Spotify</button>
     </div>
 
-    <div id = "z">
-
-	<div id="searchA" style = "display:none"></div>
-    <div id="search" style = "display:none"></div>
-    <div id="searchA2" style = "display:none"></div>
-    <div id="search2" style = "display:none"></div>
-
+	<div id="artist-id" style = "display:none"></div>
+    <div id="#track-id" style = "display:none"></div>
+    <div id="#artist" style = "display:none"></div>
+	<div id="#artist" style = "display:none"></div>
 
     <h4 class = "text-center"> Enter maximum 5 parameters to get a personalized playlist!</h4>
 
@@ -65,7 +62,7 @@
 		 <input class="form-control" id = "name" type="text">
 		<small class="form-text text-muted">We will use the first result for the closest matching track.</small>
 		</div>
-		 <button  class="btn btn-primary" style = "padding-top: 10px;" onclick = "search()"><span>Add track</span></button>
+		 <button  class="btn btn-primary" style = "padding-top: 10px;" onclick = "searchSong()"><span>Add track</span></button>
 
 </div>
 
@@ -75,7 +72,7 @@
 		 <input class="form-control" id = "artist" type="text">
 		<small class="form-text text-muted">We will use the first result for the closest matching artist.</small>
 		</div>
-		 <button  class="btn btn-primary" style = "padding-top: 10px;" onclick = "searchA()"><span>Add artist</span></button>
+		 <button  class="btn btn-primary" style = "padding-top: 10px;" onclick = "searchArtist()"><span>Add artist</span></button>
 
    </div>
    	</div>
@@ -115,7 +112,7 @@
 	</form>
 
     <div class="row justify-content-center m-5">
-		<button class="btn btn-primary" style = "padding-top: 10px;" onclick = "f()"><span>Get your playlist!</span></button>
+		<button class="btn btn-primary" style = "padding-top: 10px;" onclick = "getPlaylist()"><span>Get your playlist!</span></button>
 	</div>
 
 	<div id="error" class = "text-center text-danger"></div>
@@ -132,301 +129,10 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
-<script>
-
-    function link(x) {
-            const currentQueryParameters = getCurrentQueryParameters('#');
-            ACCESS_TOKEN = currentQueryParameters.get('access_token');
-            if (ACCESS_TOKEN != null){
-                window.location = x +'#access_token=' + ACCESS_TOKEN;
-            }
-            else {
-                window.location = x;
-            }
-            
-        }
-
-    $( document ).ready(function() {
-        if (String(window.location).length > 80){
-            fetchGenres();
-            $('#log').hide();
-            $('#z').show();
-            $("#hid").css("visibility", "visible");
-        }
-        else{
-            $('#z').hide();
-            $('#log').show();
-
-            $("#hid").css("visibility", "hidden");
-
-            
-        }
-    });
-	
-
-    const API_ENDPOINT = 'https://api.spotify.com/v1';
-    let ACCESS_TOKEN;
-
-    $("#artist").on( "keypress", function(event) {
-      if (event.which == 13 && !event.shiftKey) {
-            searchA();
-        }
-    });
-
-
-    $("#name").on( "keypress", function(event) {
-        if (event.which == 13 && !event.shiftKey) {
-            search();
-        }
-    });
-
-    function getCurrentQueryParameters(delimiter = '#') {
-        const currentLocation = String(window.location).split(delimiter)[1];
-
-        const params = new URLSearchParams(currentLocation);
-        return params;
-    }
-
-    function buildAuthLink() {
-        const auth = "https://accounts.spotify.com/authorize?client_id=b17468a2df6a462285038526460b24eb&response_type=token&redirect_uri=https%3A%2F%2Fisabellelinhnguyen.com%2F%music-match";
-
-        window.location = auth;
-    }
-
-    function f(){
-    	const currentQueryParameters = getCurrentQueryParameters('#');
-        ACCESS_TOKEN = currentQueryParameters.get('access_token');
-
-        if ($("#artist-list li").length + $("#song-list li").length + $("#genres input:checkbox:checked").length > 5){
-            $('#error').text("Please fix error.");
-        }
-		else if ($("#artist-list li").length + $("#song-list li").length + $("#genres input:checkbox:checked").length == 0){
-			$('#error').text("At least one artist, one song or genre needs to be selected.");
-		} 
-        else{
-            $('#error').text("");
-    		let g = "";
-
-    		var x = 0;
-
-    		$("#genres input:checkbox:checked").each(function(){
-    		    if (x == 0) {
-    		    	g += $(this).val();
-    		    }
-    		    else {
-    		    	g += ", " + $(this).val();
-    		    }
-    		    x++;
-    		});
-
-    		localStorage.setItem("genres", g);
-    		localStorage.setItem("artistsId", $('#searchA').text());
-    		localStorage.setItem("tracksId", $('#search').text());
-    		localStorage.setItem("artists", $('#searchA2').text());
-    		localStorage.setItem("tracks", $('#search2').text());
-    		window.location ="res.html#access_token=" + ACCESS_TOKEN;
-        }
-
-	}
-
-    function searchResultsA(json){ 
-    	if ($("#artist-list li").length + $("#song-list li").length + $("#genres input:checkbox:checked").length >= 5){
-		   $('#too-much').text("Too many parameters.");
-		}
-		else{
-			$('#too-much').text("");
-	    	if (json.artists.items.length == 0){
-	    		$('#not-found2').show();
-	    		$('#not-found2').text("No matching artists with this name were found :(");
-	    	}
-	    	else {
-	    		$('#not-found2').hide();
-	    		if ($('#searchA').html() != ""){
-	    			$('#searchA').append("," + json.artists.items[0].id);
-	    			$('#searchA2').append( ", " +json.artists.items[0].name);
-	    		}
-	    		else {
-	    			$('#searchA').append(json.artists.items[0].id);
-	    			$('#searchA2').append(json.artists.items[0].name);
-	    		}
-
-	    		var l = $("<li>");
-	    		l.text(json.artists.items[0].name);
-
-	    		$('#artist-list').append(l);
-	    	}
-    	}
-    }
-
-
-    function searchA(){
-    	const currentQueryParameters = getCurrentQueryParameters('#');
-        ACCESS_TOKEN = currentQueryParameters.get('access_token');
-        var name = $("#artist").val();
-
-        if (name == ""){
-        	$('#empty').text("No empty searches allowed.");
-
-        }
-        else{
-        	$('#empty').text("");
-	    	$.ajax({
-	            url: 'https://api.spotify.com/v1/search',
-	            dataType: 'json',
-	            headers: {
-	               'Authorization': 'Bearer ' + ACCESS_TOKEN
-	            },
-	            data: {
-		            q: name,
-	            	type: 'artist',
-	            	limit: 1
-	        	},
-	        	success: function (response) {
-		            response = JSON.parse(JSON.stringify(response));
-	            	searchResultsA(response);
-
-		        },
-		        error: function(e) {
-				    console.log(e);
-				  }
-	        });
-    	}
-    }
-
-
-    function searchResults(json){
-
-    	if ($("#artist-list li").length + $("#song-list li").length + $("#genres input:checkbox:checked").length >= 5){
-		   $('#too-much').text("Too many parameters.");
-		}
-		else{
-			$('#too-much').text("");
-	    	if (json.tracks.items.length == 0){
-	    		$('#not-found').show();
-	    		$('#not-found').text("No matching tracks with this name were found :(");
-	    	}
-	    	else {
-	    		$('#not-found').hide();
-	    		if ($('#search').html() != ""){
-	    			$('#search').append("," + json.tracks.items[0].id);
-	    			$('#search2').append(", " + json.tracks.items[0].name);
-	    		}
-	    		else {
-	    			$('#search').append(json.tracks.items[0].id);
-	    			$('#search2').append(json.tracks.items[0].name);
-	    		}
-
-	    		var l = $("<li>");
-	    		l.text(json.tracks.items[0].name + " by " + json.tracks.items[0].artists[0].name);
-
-	    		$('#song-list').append(l);
-	    	}
-    	}
-    }
-
-    function search(){
-    	 
-        var song = $("#name").val();
-
-        if (song == ""){
-        	$('#empty').text("No empty searches allowed.");
-        }
-        else{
-        	$('#empty').text("");
-	    	$.ajax({
-	            url: 'https://api.spotify.com/v1/search',
-	            dataType: 'json',
-	            headers: {
-	               'Authorization': 'Bearer ' + ACCESS_TOKEN
-	            },
-	            data: {
-		            q: song,
-	            	type: 'track',
-	            	limit: 1
-	        	},
-	        	success: function (response) {
-		            response = JSON.parse(JSON.stringify(response));
-	            	searchResults(response);
-
-		        },
-		        error: function(e) {
-				    console.log(e);
-				 }
-	        });
-    	}
-
-    }
-
-    function check(){
-    	if ($("#artist-list li").length + $("#song-list li").length + $("#genres input:checkbox:checked").length > 5){
-		   $('#error').text("Too many values added.");
-		}
-		else {
-			$('#error').text("");
-		}
-    }
-
-    function updateGenres(json){
-
-    	var col = $("<div class = 'col'>");
-    	for (var i = 0; i < json.genres.length; i++){
-
-    		if (i % 6 == 0){
-    			$('#genres').append(col);
-    		}
-    		var c = $("<input>");
-    		c.attr({
-    			"type": "checkbox",
-    			"id": i,
-    			"name": json.genres[i],
-    			"value": json.genres[i]
-    		});
-
-    		var l = $("<label>");
-    		l.attr({
-    			"for": json.genres[i],
-    		});
-    		l.text(json.genres[i]);
-
-
-    		var span = $("<span class = 'p-1' style = 'display: inline-flex; flex-wrap: nowrap'>");
-
-    		span.append(c);
-    		span.append(l);
-    		$('#genres').append(span);
-    	}
-
-    }
-
-    function fetchGenres() {
-        const currentQueryParameters = getCurrentQueryParameters('#');
-        ACCESS_TOKEN = currentQueryParameters.get('access_token');
-
-        const fetchTopOptions = {
-            method: 'GET',
-            headers: new Headers({
-                'Authorization': `Bearer ${ACCESS_TOKEN}`
-            }),
-            data: {
-            	time_range: 'medium_term',
-            	limit: 10
-            }
-        };
-
-        let x = API_ENDPOINT + "/recommendations/available-genre-seeds";
-
-        fetch(x, fetchTopOptions).then(function (response) {
-            return response.json();
-        }).then(function (json) {
-            updateGenres(json);
-        }).catch(function (error) {
-            console.log(error);
-        });
-	}
-	
-</script>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-
+<script src = "funcs.js"></script>
+<script>
+    
+</script>
 </body>
 </html>
