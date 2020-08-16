@@ -25,7 +25,7 @@
   
     $sql =  "DELETE FROM albums WHERE album_id = ". $_GET["id"] . ";";
     if ($mysqli->query($sql) === TRUE) {
-        header("Location: a.php");
+        header("Location: albums.php");
         exit;
     } else {
         echo "<div class=\"text-danger\"> Failed ". $mysqli->error. "</div>";

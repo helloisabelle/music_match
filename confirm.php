@@ -67,7 +67,7 @@
 					<a id = "con" class="nav-link"  onclick="link('contact.html')">Contact</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" onclick="link('a.php')">Album Voting</a>
+					<a class="nav-link" onclick="link('albums.php')">Album Voting</a>
 				</li>
 			</ul>
     	</div>

@@ -26,7 +26,7 @@
     $sql = "UPDATE albums SET likes = likes + 1 WHERE album_id = " . $_GET["id"] . ";";
     
     if ($mysqli->query($sql) === TRUE) {
-        header("Location: a.php"); 
+        header("Location: albums.php"); 
     } else {
         echo "<div class=\"text-danger\"> Failed ". $mysqli->error. "</div>";
         
