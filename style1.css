@@ -62,7 +62,7 @@ body{
 #header {
   padding: 15%;
   text-align: center;
-  background-image: url("music.jpg");
+  background-image: url("https://images.unsplash.com/photo-1535955565956-4a631184a821?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=967&q=80");
   background-size: cover;
   background-position: center;
   font-size: 35px;
@@ -114,11 +114,13 @@ img{
 }
 
 .page-footer{
-  background-color: #cc81db;
+  background-color: rgba(121, 59, 59, 0.39);
 }
 
 .navbar{
-  background-color: #a56bff;
+  background-color: rgba(121, 59, 59, 0.39);
+  box-shadow: 0px 0px 20px rgb(77, 72, 150);
+  font-weight: 800;
 }
 
 .navbar-light .navbar-nav .nav-link {
