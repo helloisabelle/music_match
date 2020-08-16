@@ -97,7 +97,7 @@ function searchArtist(){
             },
             success: function (response) {
                 response = JSON.parse(JSON.stringify(response));
-                searchResultsArtistrtist(response);
+                searchResultsArtist(response);
 
             },
             error: function(e) {
