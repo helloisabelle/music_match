@@ -11,6 +11,28 @@ body{
   background: linear-gradient(-90deg, #d9adff, #96bdff);
 }
 
+.check-row{
+  width: 100%;
+  margin: 10px;
+  margin-left: 5%;
+}
+.check-col{
+  text-align: left;
+}
+
+.check-row-small{
+  display: none;
+  width: 100%;
+  margin: 10px;
+  margin-left: 12%;
+}
+
+.check-col-small{
+  display: none;
+  text-align: left;
+  padding-left: 0%;
+}
+
 .delete{
   background-color: #fffbfbeb;
   border-radius: 6px;
@@ -134,6 +156,24 @@ img{
 #header p{
   font-size: 20px;
   text-shadow: 1px 1px black;
+}
+
+@media (max-width: 768px){
+  .check-row{
+    display: none;
+  }
+  .check-col{
+    display: none;
+  }
+  
+  .check-row-small{
+    display: flex;
+  }
+  
+  .check-col-small{
+    display: block;
+  }
+
 }
 
 

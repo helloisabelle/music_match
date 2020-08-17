@@ -177,31 +177,83 @@ function check(){
 }
 
 function updateGenres(json){
-    var col = $("<div class = 'col'>");
+    var row = $("<div class = 'row check-row'>");
+    var col = $("<div class = 'col check-col'>");
+    var colCount = 0;
     for (var i = 0; i < json.genres.length; i++){
-        if (i % 6 == 0){
-            $('#genres').append(col);
+        if (i % 8 == 0){
+            colCount++;
+            row.append(col);
+            col = $("<div class = 'col check-col'>");
+        }
+        if (colCount == 4){
+            row = $("<div class = 'row check-row'>");
+            $('#genres').append(row);
+            colCount = 0;
         }
         var c = $("<input>");
         c.attr({
             "type": "checkbox",
             "id": i,
             "name": json.genres[i],
-            "value": json.genres[i]
+            "value": json.genres[i],
+            "style": "vertical-align: middle;"
         });
 
         var l = $("<label>");
         l.attr({
             "for": json.genres[i],
+            "style": "padding-left: 5px; margin: 0"
         });
         l.text(json.genres[i]);
 
-        var span = $("<span class = 'p-1' style = 'display: inline-flex; flex-wrap: nowrap'>");
+        var span = $("<div class = 'p-1' style = 'vertical-align: middle;'>");
 
         span.append(c);
         span.append(l);
-        $('#genres').append(span);
+        col.append(span);
     }
+    $('#genres').append(row);
+}
+
+function updateGenresSmall(json){
+    var row = $("<div class = 'row check-row-small'>");
+    var col = $("<div class = 'col check-col-small'>");
+    var colCount = 0;
+    for (var i = 0; i < json.genres.length; i++){
+        if (i % 8 == 0){
+            colCount++;
+            row.append(col);
+            col = $("<div class = 'col check-col-small'>");
+        }
+        if (colCount == 2){
+            row = $("<div class = 'row check-row-small'>");
+            $('#genres').append(row);
+            colCount = 0;
+        }
+        var c = $("<input>");
+        c.attr({
+            "type": "checkbox",
+            "id": i,
+            "name": json.genres[i],
+            "value": json.genres[i],
+            "style": "vertical-align: middle;"
+        });
+
+        var l = $("<label>");
+        l.attr({
+            "for": json.genres[i],
+            "style": "padding-left: 5px; margin: 0"
+        });
+        l.text(json.genres[i]);
+
+        var span = $("<div class = 'p-1' style = 'vertical-align: middle;'>");
+
+        span.append(c);
+        span.append(l);
+        col.append(span);
+    }
+    $('#genres').append(row);
 }
 
 function fetchGenres() {
@@ -225,6 +277,7 @@ function fetchGenres() {
         return response.json();
     }).then(function (json) {
         updateGenres(json);
+        updateGenresSmall(json);
     }).catch(function (error) {
         console.log(error);
     });
